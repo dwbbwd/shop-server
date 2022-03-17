@@ -1,49 +1,53 @@
-import { Entity, PrimaryGeneratedColumn,Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity()
-class User {
+export default class User {
     @PrimaryGeneratedColumn({
         type: 'int',
-        comment:'主键id'
+        comment: '主键id'
     })
     id: number;
 
     @Column({
         type: 'varchar',
-        length:50,
-        comment:'账号'
-    })
-    account: string;
-    @Column({
-        type: 'varchar',
-        length:50,
+        length: 50,
+        nullable: false,
         comment: '密码'
     })
     password: string;
     @Column({
-        type:'tinyint',
-        default: 1,
-        comment:'账号的是否激活(1=未激活,0=激活)'
-    })
-    status: boolean;
-    @Column({
-        type:'varchar',
-        length:50,
-        nullable: true,
-        comment: '昵称'
-    })
-    nickname: string;
-
-    @Column({
-        type:'varchar',
-        length:50,
-        default:'这个人很懒什么都没有留下!',
+        type: 'varchar',
+        length: 50,
         nullable: false,
-        comment: '个签'
+        comment: '手机号'
     })
-    aSign:string
-
+    tel: string;
+    @Column({
+        type: 'varchar',
+        length: 50,
+        nullable: false,
+        comment: '邮箱'
+    })
+    email: string;
+    @Column({
+        type: 'varchar',
+        length: 50,
+        nullable: false,
+        comment: '密码'
+    })
+    img: string;
+    @Column({
+        type: 'varchar',
+        length: 50,
+        nullable: false,
+        comment: '真实姓名'
+    })
+    name: string;
+    @Column({
+        type: 'timestamp',
+        nullable: false,
+        comment: '创建时间'
+    })
+    createTime: string
 
 }
-
-export default User

@@ -17,9 +17,9 @@ export default (appInfo: EggAppInfo) => {
       port: 3306,
       username: 'root',
       password: '123456',
-      database: 'blog',
+      database: 'online_shop',
       synchronize: true,
-      logging: false
+      logging: true
     }
   }
   // add your special config in here
