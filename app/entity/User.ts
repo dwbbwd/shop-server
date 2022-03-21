@@ -33,7 +33,7 @@ export default class User {
         type: 'varchar',
         length: 50,
         nullable: false,
-        comment: '密码'
+        comment: '头像'
     })
     img: string;
     @Column({
@@ -43,11 +43,12 @@ export default class User {
         comment: '真实姓名'
     })
     name: string;
+
     @Column({
-        type: 'timestamp',
+        type: 'int',
         nullable: false,
         comment: '创建时间'
     })
-    createTime: string
+    createTime: number;
 
 }

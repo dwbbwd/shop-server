@@ -1,10 +1,10 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export default class Good {
+export default class Order {
     @PrimaryGeneratedColumn({
         type: 'int',
-        comment: '商品id',
+        comment: '主键id'
     })
     id: number;
 
@@ -12,40 +12,9 @@ export default class Good {
         type: 'varchar',
         length: 50,
         nullable: false,
-        comment: '名称'
+        comment: '订单编号'
     })
-    name: string;
-
-    @Column({
-        type: 'varchar',
-        precision: 50,
-        nullable: false,
-        comment: '类别'
-    })
-    classify: string;
-
-    @Column({
-        type: 'int',
-        nullable: false,
-        comment: '数量'
-    })
-    count: number;
-
-    @Column({
-        type: 'varchar',
-        length: 150,
-        nullable: false,
-        comment: '交易地点'
-    })
-    tradingPlace: string;
-
-    @Column({
-        type: 'varchar',
-        nullable: false,
-        length: 150,
-        comment: '备注信息'
-    })
-    note: string;
+    orderNo: string;
 
     @Column({
         type: 'int',
@@ -57,16 +26,16 @@ export default class Good {
     @Column({
         type: 'int',
         nullable: false,
-        comment: '商品状态'
+        comment: '商品id'
     })
-    state: number;
+    gid: number;
 
     @Column({
         type: 'int',
         nullable: false,
-        comment: '发布时间'
+        comment: '数量'
     })
-    releaseTime: number;
+    count: number;
 
     @Column({
         type: 'int',
@@ -76,11 +45,25 @@ export default class Good {
     modifyTime: number;
 
     @Column({
+        type: 'int',
+        nullable: false,
+        comment: '创建时间'
+    })
+    createTime: number;
+
+    @Column({
+        type: 'int',
+        nullable: false,
+        comment: '订单状态'
+    })
+    state: number;
+
+    @Column({
         type: 'decimal',
         precision: 10,
         scale: 2,
         nullable: false,
         comment: '价格'
     })
-    price: number;
+    totalPrice: number;
 }
