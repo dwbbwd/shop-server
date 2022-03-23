@@ -53,10 +53,19 @@ export default class Order {
 
     @Column({
         type: 'int',
-        nullable: false,
-        comment: '订单状态'
+        nullable: true,
+        default: 0,
+        comment: '支付时间'
     })
-    state: number;
+    payTime: number;
+
+    @Column({
+        type: 'int',
+        nullable: true,
+        default: 0,
+        comment: '完成时间'
+    })
+    completeTime: number;
 
     @Column({
         type: 'decimal',

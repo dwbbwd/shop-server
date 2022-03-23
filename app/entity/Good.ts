@@ -83,4 +83,12 @@ export default class Good {
         comment: '价格'
     })
     price: number;
+
+    @Column({
+        type: 'varchar',
+        length: 50,
+        nullable: false,
+        comment: '商品图片'
+    })
+    imgUrl: string;
 }

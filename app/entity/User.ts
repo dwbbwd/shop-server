@@ -51,4 +51,10 @@ export default class User {
     })
     createTime: number;
 
+    @Column({
+        type: 'int',
+        nullable: false,
+        comment: '修改时间'
+    })
+    updateTime: number;
 }

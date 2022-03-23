@@ -14,22 +14,25 @@ export default class Message {
         comment: '消息内容'
     })
     content: string;
+
     @Column({
         type: 'int',
         nullable: false,
-        comment: '用户id'
+        comment: '发送消息用户id'
     })
-    uid: number;
+    sendUid: number;
+
     @Column({
         type: 'int',
         nullable: false,
-        comment: '数量'
+        comment: '接收消息用户'
     })
-    count: number;
+    receiveUid: number;
+
     @Column({
         type: 'int',
         nullable: false,
-        comment: '创建时间'
+        comment: '发送时间'
     })
-    createTime: number;
+    sendTime: number;
 }
