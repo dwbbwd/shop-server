@@ -1,9 +1,7 @@
 import { ICommonResult } from '../contract';
 import { ErrorCode } from './enum';
 import { Result } from './vo';
-import { Service } from 'typedi';
 
-@Service()
 export default class Common implements ICommonResult {
 
     public success(code: ErrorCode, data: any): Result {
