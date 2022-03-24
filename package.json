@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "egg": "^2.6.1",
+    "egg-di": "^1.2.1",
     "egg-scripts": "^2.6.0",
     "egg-ts-typeorm": "^1.1.12",
     "mysql": "^2.18.1",
