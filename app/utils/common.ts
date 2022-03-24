@@ -1,14 +1,17 @@
 import { ICommonResult } from '../contract';
 import { ErrorCode } from './enum';
 import { Result } from './vo';
+import { Service } from 'typedi';
 
+@Service()
 export default class Common implements ICommonResult {
-    success(code: ErrorCode, data: any): Result {
-        return new Result(code, data);
+
+    public success(code: ErrorCode, data: any): Result {
+        const result = new Result(code, data);
+        return result;
     }
-    error(code: any, message: string): Result {
-        const result = new Result(code, {});
-        result.message = message;
+    public error(code: any, message: string): Result {
+        const result = new Result(code, message);
         return result;
     }
 

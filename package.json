@@ -22,10 +22,14 @@
     "clean": "ets clean"
   },
   "dependencies": {
+    "crypto-js": "^4.1.1",
     "egg": "^2.6.1",
     "egg-scripts": "^2.6.0",
     "egg-ts-typeorm": "^1.1.12",
+    "jsonwebtoken": "^8.5.1",
     "mysql": "^2.18.1",
+    "reflect-metadata": "^0.1.13",
+    "typedi": "^0.10.0",
     "typeorm": "^0.2.38"
   },
   "devDependencies": {
