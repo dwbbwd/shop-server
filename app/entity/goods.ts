@@ -1,7 +1,7 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export default class Good {
+export default class Goods {
     @PrimaryGeneratedColumn({
         type: 'int',
         comment: '商品id',
