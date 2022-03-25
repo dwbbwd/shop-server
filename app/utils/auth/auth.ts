@@ -1,4 +1,4 @@
-import jwt from 'jsonwebtoken';
+import { sign, verify } from 'jsonwebtoken';
 import { ErrorCode } from '../enum';
 import { GlobalError } from '../error';
 
@@ -13,17 +13,17 @@ const expires: number = 12 * 60 * 60;
 
 export class Auth {
     public encode(params: any): string {
-        return jwt.sign(params, screteKey, {
+        return sign(JSON.stringify(params), screteKey, {
             expiresIn: expires,
-        })
+        });
     }
     public decode(token: string): any {
         let res: any = null;
         try {
-            res = jwt.verify(
+            res = verify(
                 token,
                 screteKey)
-            return res
+            return JSON.parse(res);
         } catch (error) {
             throw new GlobalError(ErrorCode.auth, 'token校验失败');
         }
