@@ -7,7 +7,12 @@ export default () => {
     return async function auth(ctx: Context, next: any) {
         const common = new Common();
         const auth = new Auth();
-        if (ctx.request.url.indexOf('/login') > -1 || ctx.request.url.indexOf('/register') > -1) {
+
+        if (ctx.request.url.toLowerCase().indexOf('admin') > -1) {
+            await next();
+            return;
+        }
+        if (ctx.request.url.toLowerCase().indexOf('/login') > -1 || ctx.request.url.indexOf('/register') > -1) {
             await next();
         } else {
             const token = ctx.request.header[enum_.Header.token] as string;
@@ -33,6 +38,10 @@ export default () => {
                 ctx.body = common.error(enum_.ErrorCode.auth, '用户不存在,请重新登录');
                 return;
             } else {
+                if (user.state) {
+                    ctx.body = common.error(enum_.ErrorCode.ban, '用户已被禁用');
+                    return;
+                }
                 await next();
             }
         }

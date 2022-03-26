@@ -12,13 +12,6 @@ export default class User {
         type: 'varchar',
         length: 50,
         nullable: false,
-        comment: '账号'
-    })
-    account: string;
-    @Column({
-        type: 'varchar',
-        length: 50,
-        nullable: false,
         comment: '密码'
     })
     password: string;
@@ -50,6 +43,12 @@ export default class User {
         comment: '真实姓名'
     })
     name: string;
+    @Column({
+        type: 'int',
+        nullable: false,
+        comment: '状态'
+    })
+    state: number;
 
     @Column({
         type: 'int',

@@ -12,10 +12,26 @@ export default class UserService extends Service implements IUserService {
 
     private common: Common = new Common();
     private auth: Auth = new Auth();
-    async login(account: string, password: string): Promise<Result> {
-        const users = await this.ctx.repo.User.find({ where: { account: account } });
+
+    async phoneLogin(phone: string, password: string): Promise<Result> {
+        const users = await this.ctx.repo.User.find({ where: { tel: phone } });
 
         if (!users.length) return this.common.error(enum_.ErrorCode.error, '用户不存在');
+        if (users[0].state) return this.common.error(enum_.ErrorCode.ban, '用户已被禁用');
+        if (users[0].password !== password) return this.common.error(enum_.ErrorCode.error, '账号或密码错误');
+
+        const token = this.auth.encode({ id: users[0].id });
+
+        return this.common.success(enum_.ErrorCode.success, {
+            token: token,
+            user: users[0]
+        });
+    }
+    async emailLogin(email: string, password: string): Promise<Result> {
+        const users = await this.ctx.repo.User.find({ where: { email: email } });
+
+        if (!users.length) return this.common.error(enum_.ErrorCode.error, '用户不存在');
+        if (users[0].state) return this.common.error(enum_.ErrorCode.ban, '用户已被禁用');
         if (users[0].password !== password) return this.common.error(enum_.ErrorCode.error, '账号或密码错误');
 
         const token = this.auth.encode({ id: users[0].id });
@@ -26,10 +42,11 @@ export default class UserService extends Service implements IUserService {
         });
     }
     async register(entry: User): Promise<Result> {
-        const count = await this.ctx.repo.User.count({ where: { account: entry.account } });
-        if (count) return this.common.error(enum_.ErrorCode.error, '账号已存在');
+        const count = await this.ctx.repo.User.count({ where: { account: entry.tel } });
+        if (count) return this.common.error(enum_.ErrorCode.error, '手机号已存在');
         entry.createTime = dayjs().unix();
         entry.updateTime = dayjs().unix();
+        entry.state = 0;
         await this.ctx.repo.User.save(entry);
         return this.common.success(enum_.ErrorCode.success, {});
     }

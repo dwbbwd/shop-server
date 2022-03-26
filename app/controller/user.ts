@@ -5,12 +5,16 @@ export default class UserController extends Controller {
     public async index() {
         const { ctx } = this;
 
-        const firstUser = await ctx.repo.User.find();
-        ctx.body = firstUser;
+        ctx.body = { data: '11' };
     }
-    public async login() {
-        const { account, password } = this.ctx.request.body;
-        const data = await this.service.userService.login(account, password);
+    public async phoneLogin() {
+        const { tel, password } = this.ctx.request.body;
+        const data = await this.service.userService.phoneLogin(tel, password);
+        this.ctx.body = data;
+    }
+    public async emailLogin() {
+        const { email, password } = this.ctx.request.body;
+        const data = await this.service.userService.emailLogin(email, password);
         this.ctx.body = data;
     }
     public async register() {
