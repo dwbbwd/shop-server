@@ -1,25 +1,50 @@
+import dayjs = require('dayjs');
 import { Service } from 'egg';
 
 import { IUserService } from '../contract';
-import user from '../entity/user';
+import User from '../entity/user';
 import { enum_ } from '../utils';
+import { Auth } from '../utils/auth';
 import Common from '../utils/common';
-import { GlobalError } from '../utils/error';
 import { Result } from '../utils/vo';
 
 export default class UserService extends Service implements IUserService {
+
     private common: Common = new Common();
+    private auth: Auth = new Auth();
     async login(account: string, password: string): Promise<Result> {
         const users = await this.ctx.repo.User.find({ where: { account: account } });
-        if (!users?.length) this.common.error(enum_.ErrorCode.error, '用户不存在');
-        if (users[0].password !== password) throw new GlobalError(enum_.ErrorCode.error, '用户不存在或密码错误')
 
-        return this.common.success(enum_.ErrorCode.success, '123');
+        if (!users.length) return this.common.error(enum_.ErrorCode.error, '用户不存在');
+        if (users[0].password !== password) return this.common.error(enum_.ErrorCode.error, '账号或密码错误');
+
+        const token = this.auth.encode({ id: users[0].id });
+
+        return this.common.success(enum_.ErrorCode.success, {
+            token: token,
+            user: users[0]
+        });
     }
-    async register(entry: user): Promise<Result> {
-        console.log(entry);
-
-        throw new Error('Method not implemented.');
+    async register(entry: User): Promise<Result> {
+        const count = await this.ctx.repo.User.count({ where: { account: entry.account } });
+        if (count) return this.common.error(enum_.ErrorCode.error, '账号已存在');
+        entry.createTime = dayjs().unix();
+        entry.updateTime = dayjs().unix();
+        await this.ctx.repo.User.save(entry);
+        return this.common.success(enum_.ErrorCode.success, {});
     }
-
+    async modify(entry: User): Promise<Result> {
+        const user = await this.ctx.repo.User.findOne({ id: entry.id });
+        if (!user) return this.common.error(enum_.ErrorCode.error, '用户不存在');
+        entry.id = user.id;
+        entry.createTime = user.createTime;
+        entry.updateTime = dayjs().unix();
+        await this.ctx.repo.User.save(entry);
+        return this.common.success(enum_.ErrorCode.success, {});
+    }
+    async getUser(uid: number): Promise<Result> {
+        const user = await this.ctx.repo.User.findOne({ id: uid });
+        if (!user) return this.common.error(enum_.ErrorCode.error, '用户不存在');
+        return this.common.success(enum_.ErrorCode.success, user);
+    }
 }

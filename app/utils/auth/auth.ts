@@ -6,15 +6,12 @@ import { GlobalError } from '../error';
  * 秘钥
  */
 const screteKey: string = 'U2FsdGVkX1/q6TqfzW7GVNbQRz4TuYcCPUGJ17FnJss='
-/**
- * 过期时间
- */
-const expires: number = 12 * 60 * 60;
+
 
 export class Auth {
     public encode(params: any): string {
-        return sign(JSON.stringify(params), screteKey, {
-            expiresIn: expires,
+        return sign(params, screteKey, {
+            expiresIn: '2h',
         });
     }
     public decode(token: string): any {
@@ -23,7 +20,7 @@ export class Auth {
             res = verify(
                 token,
                 screteKey)
-            return JSON.parse(res);
+            return res;
         } catch (error) {
             throw new GlobalError(ErrorCode.auth, 'token校验失败');
         }

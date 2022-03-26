@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "crypto-js": "^4.1.1",
+    "dayjs": "^1.11.0",
     "egg": "^2.6.1",
     "egg-scripts": "^2.6.0",
     "egg-ts-typeorm": "^1.1.12",

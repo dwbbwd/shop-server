@@ -8,7 +8,13 @@ export default (appInfo: EggAppInfo) => {
   config.keys = appInfo.name + '_1633921627327_8508';
 
   // add your egg config in here
-  config.middleware = [];
+  config.middleware = ['check'];
+
+  config.cors = {
+    origin: '*', // 匹配规则  域名+端口  *则为全匹配
+    allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH',
+  };
+
   // {app_root}/config/config.default.ts
   config.typeorm = {
     client: {
@@ -20,6 +26,11 @@ export default (appInfo: EggAppInfo) => {
       database: 'online_shop',
       synchronize: true,
       logging: true
+    }
+  }
+  config.security = {
+    csrf: {
+      enable: false,
     }
   }
   // add your special config in here

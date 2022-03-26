@@ -12,6 +12,13 @@ export default class User {
         type: 'varchar',
         length: 50,
         nullable: false,
+        comment: '账号'
+    })
+    account: string;
+    @Column({
+        type: 'varchar',
+        length: 50,
+        nullable: false,
         comment: '密码'
     })
     password: string;
