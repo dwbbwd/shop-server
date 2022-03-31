@@ -57,7 +57,7 @@ export default class Goods {
     @Column({
         type: 'int',
         nullable: false,
-        comment: '商品状态'
+        comment: '商品状态(0:上架,1:下架,2:管理员下架)'
     })
     state: number;
 

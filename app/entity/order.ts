@@ -66,7 +66,13 @@ export default class Order {
         comment: '完成时间'
     })
     completeTime: number;
-
+    @Column({
+        type: 'int',
+        nullable: true,
+        default: 0,
+        comment: '状态(0=待收货,1=未评价,2=已评价)'
+    })
+    state: number;
     @Column({
         type: 'decimal',
         precision: 10,

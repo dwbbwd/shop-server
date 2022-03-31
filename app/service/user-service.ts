@@ -1,4 +1,4 @@
-import dayjs = require('dayjs');
+import dayJS from 'dayjs';
 import { Service } from 'egg';
 
 import { IUserService } from '../contract';
@@ -44,8 +44,8 @@ export default class UserService extends Service implements IUserService {
     async register(entry: User): Promise<Result> {
         const count = await this.ctx.repo.User.count({ where: { account: entry.tel } });
         if (count) return this.common.error(enum_.ErrorCode.error, '手机号已存在');
-        entry.createTime = dayjs().unix();
-        entry.updateTime = dayjs().unix();
+        entry.createTime = dayJS().unix();
+        entry.updateTime = dayJS().unix();
         entry.state = 0;
         await this.ctx.repo.User.save(entry);
         return this.common.success(enum_.ErrorCode.success, {});
@@ -55,7 +55,7 @@ export default class UserService extends Service implements IUserService {
         if (!user) return this.common.error(enum_.ErrorCode.error, '用户不存在');
         entry.id = user.id;
         entry.createTime = user.createTime;
-        entry.updateTime = dayjs().unix();
+        entry.updateTime = dayJS().unix();
         await this.ctx.repo.User.save(entry);
         return this.common.success(enum_.ErrorCode.success, {});
     }
