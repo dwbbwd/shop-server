@@ -12,7 +12,7 @@ export default () => {
             await next();
             return;
         }
-        if (ctx.request.url.toLowerCase().indexOf('/login') > -1 || ctx.request.url.indexOf('/register') > -1) {
+        if (ctx.request.url.toLowerCase().indexOf('login') > -1 || ctx.request.url.indexOf('register') > -1) {
             await next();
         } else {
             const token = ctx.request.header[enum_.Header.token] as string;

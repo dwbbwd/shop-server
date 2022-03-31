@@ -42,7 +42,7 @@ export default class UserService extends Service implements IUserService {
         });
     }
     async register(entry: User): Promise<Result> {
-        const count = await this.ctx.repo.User.count({ where: { account: entry.tel } });
+        const count = await this.ctx.repo.User.count({ where: { tel: entry.tel } });
         if (count) return this.common.error(enum_.ErrorCode.error, '手机号已存在');
         entry.createTime = dayJS().unix();
         entry.updateTime = dayJS().unix();

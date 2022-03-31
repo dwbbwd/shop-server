@@ -8,5 +8,4 @@ export default class GoodsController extends Controller {
         const data = await ctx.service.goodsService.search(current, pageSize, keywords, type);
         ctx.body = data;
     }
-    public async
 }

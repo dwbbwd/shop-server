@@ -24,7 +24,7 @@ export default (appInfo: EggAppInfo) => {
       password: '123456',
       database: 'online_shop',
       synchronize: true,
-      logging: true
+      logging: false
     }
   }
   config.security = {

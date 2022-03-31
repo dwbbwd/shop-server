@@ -10,7 +10,7 @@ export default class Goods {
 
     @Column({
         type: 'varchar',
-        length: 50,
+        length: 200,
         nullable: false,
         comment: '名称'
     })
