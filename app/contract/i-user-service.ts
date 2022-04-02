@@ -7,4 +7,5 @@ export interface IUserService {
     register(entry: User): Promise<Result>;
     modify(entry: User): Promise<Result>;
     getUser(uid: number): Promise<Result>;
+    getCard(uid: number): Promise<Result>;
 }

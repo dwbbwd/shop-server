@@ -1,11 +1,13 @@
 import { Service } from 'egg';
 import { Like } from 'typeorm';
+
+import { IGoodsService } from '../contract';
 import Goods from '../entity/goods';
 import { enum_ } from '../utils';
 import Common from '../utils/common';
 import { Result } from '../utils/vo';
 
-export default class GoodsService extends Service {
+export default class GoodsService extends Service implements IGoodsService {
 
     private common: Common = new Common();
 
