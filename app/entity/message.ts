@@ -35,4 +35,10 @@ export default class Message {
         comment: '发送时间'
     })
     sendTime: number;
+    @Column({
+        type: 'int',
+        nullable: false,
+        comment: '状态'
+    })
+    state: number;
 }

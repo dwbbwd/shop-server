@@ -66,16 +66,16 @@ export default class UserService extends Service implements IUserService {
         return this.common.success(enum_.ErrorCode.success, user);
     }
     public async getCard(uid: number): Promise<Result> {
-        const cart = await this.ctx.repo.Cart.count({ where: { userId: uid } });
+        const cart = await this.ctx.repo.Cart.count({ where: { uid: uid } });
         const received = await this.ctx.repo.Order.count({
             where: {
-                userId: uid,
+                uid: uid,
                 state: 0
             }
         });
         const evaluate = await this.ctx.repo.Order.count({
             where: {
-                userId: uid,
+                uid: uid,
                 state: 1
             }
         });

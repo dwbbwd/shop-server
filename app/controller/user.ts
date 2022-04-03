@@ -33,4 +33,12 @@ export default class UserController extends Controller {
         const data = await this.service.userService.getUser(id);
         this.ctx.body = data;
     }
+    public async getCard() {
+        console.log(1)
+        const { id } = this.ctx.request.body;
+        console.log(id);
+
+        const data = await this.service.userService.getCard(id);
+        this.ctx.body = data;
+    }
 }

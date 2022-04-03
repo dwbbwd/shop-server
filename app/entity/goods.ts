@@ -10,19 +10,19 @@ export default class Goods {
 
     @Column({
         type: 'varchar',
-        length: 200,
+        length: 50,
         nullable: false,
         comment: '名称'
     })
     name: string;
 
     @Column({
-        type: 'varchar',
+        type: 'int',
         precision: 50,
         nullable: false,
         comment: '类别'
     })
-    classify: string;
+    type: number;
 
     @Column({
         type: 'int',
@@ -57,7 +57,7 @@ export default class Goods {
     @Column({
         type: 'int',
         nullable: false,
-        comment: '商品状态(0:上架,1:下架,2:管理员下架)'
+        comment: '商品状态'
     })
     state: number;
 

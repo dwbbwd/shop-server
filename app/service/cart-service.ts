@@ -1,4 +1,4 @@
-import dayJS from 'dayjs';
+import dayJs from 'dayjs';
 import { Service } from 'egg';
 
 import { ICartService } from '../contract';
@@ -18,7 +18,7 @@ export default class CartService extends Service implements ICartService {
             uid: uid,
             gid: gid,
             count: count,
-            modifyTime: dayJS().unix(),
+            modifyTime: dayJs().unix(),
         });
         return this.common.success(enum_.ErrorCode.success, null);
     }
@@ -40,6 +40,7 @@ export default class CartService extends Service implements ICartService {
     }
     public async update(carts: Cart[]): Promise<Result> {
         for (const cart of carts) {
+            cart.modifyTime = dayJs().unix();
             await this.ctx.repo.Cart.save(cart);
         }
         return this.common.success(enum_.ErrorCode.success, null);
