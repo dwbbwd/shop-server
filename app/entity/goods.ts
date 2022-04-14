@@ -10,7 +10,7 @@ export default class Goods {
 
     @Column({
         type: 'varchar',
-        length: 50,
+        length: 255,
         nullable: false,
         comment: '名称'
     })
@@ -33,7 +33,7 @@ export default class Goods {
 
     @Column({
         type: 'varchar',
-        length: 150,
+        length: 255,
         nullable: false,
         comment: '交易地点'
     })
@@ -42,7 +42,7 @@ export default class Goods {
     @Column({
         type: 'varchar',
         nullable: false,
-        length: 150,
+        length: 255,
         comment: '备注信息'
     })
     note: string;
@@ -86,7 +86,7 @@ export default class Goods {
 
     @Column({
         type: 'varchar',
-        length: 50,
+        length: 255,
         nullable: false,
         comment: '商品图片'
     })

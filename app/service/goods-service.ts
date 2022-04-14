@@ -21,17 +21,17 @@ export default class GoodsService extends Service implements IGoodsService {
                     state: 0
                 }
             });
-            const ids = this.getRandomSet(pageSize, count).values();
-            let value: any = ids.next().value;
-            while (value !== undefined) {
-                const goods = await this.ctx.repo.Goods.findOne({ id: value });
-                data.push(goods as Goods);
-                value = ids.next().value;
-            }
+            const list = await this.ctx.repo.Goods.find({
+                where: {
+                    state: 0
+                },
+                skip: (pageCurrent - 1) * pageSize,
+                take: pageSize
+            })
 
             return this.common.success(enum_.ErrorCode.success, {
-                list: data,
-                count: pageSize
+                list: list,
+                count: count
             });
         } else {
             const where = {
@@ -94,12 +94,4 @@ export default class GoodsService extends Service implements IGoodsService {
         return this.common.success(enum_.ErrorCode.success, null);
     }
 
-    // 获取不重复的id列表
-    private getRandomSet(size: number, count: number): Set<number> {
-        const set = new Set<number>();
-        while (set.size < size) {
-            set.add(Math.floor(Math.random() * count) + 1);
-        }
-        return set;
-    }
 }

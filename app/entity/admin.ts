@@ -24,7 +24,7 @@ export default class Admin {
     account: string;
     @Column({
         type: 'varchar',
-        length: 50,
+        length: 255,
         nullable: false,
         comment: '头像'
     })
