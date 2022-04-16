@@ -16,6 +16,15 @@ export default class CommentService extends Service implements ICommentService {
                 gid: gid
             }
         });
+        console.log(data);
+        for (let r of data) {
+            const user = await this.ctx.repo.User.findOne({
+                where: {
+                    id: r.uid
+                }
+            });
+            r = Object.assign(r, { name: user?.name, img: user?.img });
+        }
         return this.common.success(enum_.ErrorCode.success, data);
     }
     public async add(gid: number, uid: number, content: string): Promise<Result> {
