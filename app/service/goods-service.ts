@@ -93,5 +93,12 @@ export default class GoodsService extends Service implements IGoodsService {
         await this.ctx.repo.Goods.save(goods);
         return this.common.success(enum_.ErrorCode.success, null);
     }
-
+    public async getGood(id: number): Promise<Result> {
+        const data = await this.ctx.repo.Goods.findOne({
+            where: {
+                id: id
+            }
+        });
+        return this.common.success(enum_.ErrorCode.success, data);
+    }
 }

@@ -17,6 +17,7 @@ export default (app: Application) => {
   router.post('/goods/add', controller.goods.add);
   router.post('/goods/delete', controller.goods.delete);
   router.post('/goods/save', controller.goods.save);
+  router.post('/goods/getGood', controller.goods.getGood);
   // order
   router.post('/order/add', controller.order.add);
   router.post('/order/findAll', controller.order.findAll);

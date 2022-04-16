@@ -10,7 +10,7 @@ export default class Order {
 
     @Column({
         type: 'varchar',
-        length: 50,
+        length: 255,
         nullable: false,
         comment: '订单编号'
     })

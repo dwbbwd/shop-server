@@ -7,4 +7,5 @@ export interface IGoodsService {
     add(uid: number, name: string, price: number, type: number, img: string, count: number, note: string, tradingPlace: string): Promise<Result>;
     delete(id: number): Promise<Result>;
     save(goods: Goods): Promise<Result>;
+    getGood(id: number): Promise<Result>;
 }

@@ -33,4 +33,10 @@ export default class GoodsController extends Controller {
         const data = await ctx.service.goodsService.save(goods);
         ctx.body = data;
     }
+    public async getGood() {
+        const { ctx } = this;
+        const { gid } = ctx.request.body;
+        const data = await ctx.service.goodsService.getGood(gid);
+        ctx.body = data;
+    }
 }
