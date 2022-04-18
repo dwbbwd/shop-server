@@ -22,14 +22,19 @@ export default class CartService extends Service implements ICartService {
         });
         return this.common.success(enum_.ErrorCode.success, null);
     }
-    public async find(uid: number, pageSize: number, pageCurrent: number): Promise<Result> {
+    public async find(uid: number): Promise<Result> {
         const data = await this.ctx.repo.Cart.find({
             where: {
                 uid: uid
-            },
-            skip: (pageCurrent - 1) * pageSize,
-            take: pageSize
+            }
         });
+        for (const r of data) {
+            const goods = await this.ctx.repo.Goods.findOne({ id: r.gid });
+            const user = await this.ctx.repo.User.findOne({ id: goods?.uid });
+            r['sellerName'] = user?.name;
+            r['img'] = user?.img;
+            r['goodsDtail'] = goods;
+        }
         return this.common.success(enum_.ErrorCode.success, data);
     }
     public async delete(cids: number[]): Promise<Result> {

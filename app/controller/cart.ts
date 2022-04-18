@@ -9,8 +9,8 @@ export default class CartController extends Controller {
     }
     public async find() {
         const { ctx } = this;
-        const { uid, pageSize, pageCurrent } = ctx.request.body;
-        const data = await ctx.service.cartService.find(uid, pageSize, pageCurrent);
+        const { uid } = ctx.request.body;
+        const data = await ctx.service.cartService.find(uid);
         ctx.body = data;
     }
     public async delete() {

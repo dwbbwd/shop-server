@@ -32,25 +32,23 @@ export default class OrderService extends Service implements IOrderService {
         });
         return this.common.success(enum_.ErrorCode.success, data);
     }
-    public async search(uid: number, keyword: string, pageSize: number, pageCurrent: number): Promise<Result> {
-        const list = await this.ctx.repo.Order.find({
+    public async search(uid: number, keyword: string, _: number, __: number): Promise<Result> {
+        const orders = await this.ctx.repo.Order.find({
             where: {
                 uid: uid,
                 orderNo: Like(`%${keyword}%`),
-            },
-            skip: (pageCurrent - 1) * pageSize,
-            take: pageSize
+            }
         });
-        const total = await this.ctx.repo.Order.count({
-            where: {
-                uid: uid,
-                orderNo: Like(`%${keyword}%`),
-            },
-        });
-
+        for (const order of orders) {
+            const goods = await this.ctx.repo.Goods.findOne({ id: order.id });
+            const user = await this.ctx.repo.User.findOne({ id: goods?.uid });
+            order['seller'] = user?.id;
+            order['sellerName'] = user?.name;
+            order['sellerImg'] = user?.img;
+            order['goodsPrice'] = goods?.price;
+        }
         return this.common.success(enum_.ErrorCode.success, {
-            list: list,
-            count: total
+            list: orders
         });
     }
     public async payOrder(oid: number): Promise<Result> {
