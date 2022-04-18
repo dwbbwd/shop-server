@@ -32,7 +32,7 @@ export default class CartService extends Service implements ICartService {
             const goods = await this.ctx.repo.Goods.findOne({ id: r.gid });
             const user = await this.ctx.repo.User.findOne({ id: goods?.uid });
             r['sellerName'] = user?.name;
-            r['img'] = user?.img;
+            r['sellerImg'] = user?.img;
             r['goodsDtail'] = goods;
         }
         return this.common.success(enum_.ErrorCode.success, data);
