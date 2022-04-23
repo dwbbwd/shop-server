@@ -69,6 +69,7 @@ export default class OrderService extends Service implements IOrderService {
             this.common.error(enum_.ErrorCode, '订单未支付');
         }
         order.completeTime = dayJs().unix();
+        order.state = 1;
         await this.ctx.repo.Order.save(order);
         return this.common.success(enum_.ErrorCode.success, null);
     }
