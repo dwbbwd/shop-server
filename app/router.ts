@@ -11,6 +11,7 @@ export default (app: Application) => {
   router.post('/user/modify', controller.user.modify);
   router.post('/user/getUser', controller.user.getUser);
   router.post('/user/userCard', controller.user.getCard);
+  router.post('/user/findAll', controller.user.findAll);
   // goods
   router.post('/goods/search', controller.goods.search);
   router.post('/goods/find', controller.goods.find);

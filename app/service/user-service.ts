@@ -85,4 +85,8 @@ export default class UserService extends Service implements IUserService {
             evaluate: evaluate ?? 0
         })
     }
+    public async findAll() {
+        const users = await this.ctx.repo.User.find();
+        return this.common.success(enum_.ErrorCode.success, users);
+    }
 }

@@ -41,4 +41,8 @@ export default class UserController extends Controller {
         const data = await this.service.userService.getCard(id);
         this.ctx.body = data;
     }
+    public async findAll() {
+        const data = await this.service.userService.findAll();
+        this.ctx.body = data;
+    }
 }
