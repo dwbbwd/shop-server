@@ -65,6 +65,7 @@ export default class MessageService extends Service implements IMessageService {
             userIds.push(r?.sendUid);
         }
         for (const uid of userIds) {
+            const message: any[] = [];
             const user = await this.ctx.repo.User.findOne({
                 where: {
                     id: uid
@@ -77,12 +78,43 @@ export default class MessageService extends Service implements IMessageService {
                     state: 0
                 }
             });
+            const receiveMessage = await this.ctx.repo.Message.find({
+                where: {
+                    receiveUid: rid,
+                    sendUid: uid
+
+                },
+                order: {
+                    sendTime: 'DESC'
+                },
+                take: 1
+            });
+            const sendMessage = await this.ctx.repo.Message.find({
+                where: {
+                    receiveUid: uid,
+                    sendUid: rid
+
+                },
+                order: {
+                    sendTime: 'DESC'
+                },
+                take: 1
+            });
+            if (receiveMessage.length > 0 && sendMessage.length > 0) {
+                receiveMessage[0].sendTime >= sendMessage[0].sendTime ? message.push(receiveMessage[0]) : message.push(sendMessage[0]);
+            } else if (!receiveMessage.length) {
+                message.push(sendMessage[0]);
+            } else {
+                message.push(receiveMessage[0]);
+            }
+
             result.push({
                 user: user,
-                count: count
+                count: count,
+                message: message
             });
         }
-        return result;
+        return this.common.success(enum_.ErrorCode.success, result);
     }
 
 }
