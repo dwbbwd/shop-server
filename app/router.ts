@@ -44,6 +44,6 @@ export default (app: Application) => {
   router.post('/message/add', controller.message.add);
   router.post('/message/find', controller.message.findLimit);
   router.post('/message/delete', controller.message.delete);
-
+  router.post('/message/findUnread', controller.message.findUnread);
 
 };

@@ -19,5 +19,11 @@ export default class MessageController extends Controller {
         const data = await ctx.service.messageService.delete(mid);
         ctx.body = data;
     }
+    public async findUnread() {
+        const { ctx } = this;
+        const { rid } = ctx.request.body;
+        const data = await ctx.service.messageService.findUnread(rid);
+        ctx.body = data;
+    }
 
 }

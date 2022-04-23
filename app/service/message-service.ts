@@ -49,6 +49,41 @@ export default class MessageService extends Service implements IMessageService {
         await this.ctx.repo.Message.delete({ id: id });
         return this.common.success(enum_.ErrorCode.success, null);
     }
-
+    public async findUnread(rid: string) {
+        const result: any[] = [];
+        const data = await this.ctx.repo.Message.find({
+            where: {
+                receiveUid: rid,
+                state: 0
+            }
+        });
+        const userIds: number[] = [];
+        for (const r of data) {
+            const res = userIds.find(row => row === r.sendUid)
+            if (res) {
+                continue;
+            }
+            userIds.push(r?.sendUid);
+        }
+        for (const uid of userIds) {
+            const user = await this.ctx.repo.User.findOne({
+                where: {
+                    id: uid
+                }
+            })
+            const count = await this.ctx.repo.Message.count({
+                where: {
+                    receiveUid: rid,
+                    sendUid: uid,
+                    state: 0
+                }
+            });
+            result.push({
+                user: user,
+                count: count
+            });
+        }
+        return result;
+    }
 
 }
