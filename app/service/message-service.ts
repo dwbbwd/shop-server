@@ -53,8 +53,7 @@ export default class MessageService extends Service implements IMessageService {
         const result: any[] = [];
         const data = await this.ctx.repo.Message.find({
             where: {
-                receiveUid: rid,
-                state: 0
+                receiveUid: rid
             }
         });
         const userIds: number[] = [];
