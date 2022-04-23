@@ -25,7 +25,7 @@ export default class MessageService extends Service implements IMessageService {
         });
 
         // 将所以消息变为已读
-        for (const r of receiveData) {
+        for (const r of sendData) {
             r.state = 1;
             await this.ctx.repo.Message.save(r);
         }
