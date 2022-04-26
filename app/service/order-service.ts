@@ -78,4 +78,8 @@ export default class OrderService extends Service implements IOrderService {
         await this.ctx.repo.Order.save(order);
         return this.common.success(enum_.ErrorCode.success, null);
     }
+    public async findAllByBg() {
+        const orders = await this.ctx.repo.Order.find();
+        return this.common.success(enum_.ErrorCode.success, orders);
+    }
 }

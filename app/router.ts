@@ -11,7 +11,7 @@ export default (app: Application) => {
   router.post('/user/modify', controller.user.modify);
   router.post('/user/getUser', controller.user.getUser);
   router.post('/user/userCard', controller.user.getCard);
-  router.post('/user/findAll', controller.user.findAll);
+  router.post('/user/findAll', controller.user.findAll);// 查询所有用户
   // goods
   router.post('/goods/search', controller.goods.search);
   router.post('/goods/find', controller.goods.find);
@@ -19,6 +19,8 @@ export default (app: Application) => {
   router.post('/goods/delete', controller.goods.delete);
   router.post('/goods/save', controller.goods.save);
   router.post('/goods/getGood', controller.goods.getGood);
+  router.post('/goods/shelvesGoods', controller.goods.shelvesGoods);//管理员修改商品状态
+  router.post('/goods/findAll', controller.goods.findAll);// 查询所有商品
   // order
   router.post('/order/add', controller.order.add);
   router.post('/order/findAll', controller.order.findAll);
@@ -27,6 +29,7 @@ export default (app: Application) => {
   router.post('/order/pay', controller.order.payOrder);
   router.post('/order/complete', controller.order.completeOrder);
   router.post('/order/save', controller.order.save);
+  router.post('/order/findAllByBg', controller.order.findAllByBg);
   // cart
   router.post('/cart/add', controller.cart.add);
   router.post('/cart/find', controller.cart.find);

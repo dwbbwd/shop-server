@@ -44,4 +44,9 @@ export default class OrderController extends Controller {
         const data = await ctx.service.orderService.save(order);
         ctx.body = data;
     }
+    public async findAllByBg() {
+        const { ctx } = this;
+        const data = await ctx.service.orderService.findAllByBg();
+        ctx.body = data;
+    }
 }
